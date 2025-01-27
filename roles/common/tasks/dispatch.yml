@@ -1,0 +1,23 @@
+- name: Install golang
+  ansible.builtin.dnf:
+    name: golang
+    state: latest
+
+- name: Run tasks from prereq
+  ansible.builtin.include_role:
+    name: common
+    tasks_from: prereq
+
+
+- name: kk
+  ansible.builtin.shell: go mod init {{ comp_name }} ; go get ; go build
+  args:
+    chdir: /app
+
+
+
+
+- name: Run tasks from systemsetup
+  ansible.builtin.include_role:
+    name: common
+    tasks_from: systemsetup
